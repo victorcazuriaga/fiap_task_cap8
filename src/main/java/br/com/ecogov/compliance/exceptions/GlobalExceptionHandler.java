@@ -148,11 +148,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(
             HttpMessageNotReadableException ex, HttpServletRequest request) {
         
+        String errorMsg = "Formato JSON inválido ou tipo de dado incorreto";
+        if (ex.getMessage() != null && !ex.getMessage().isEmpty()) {
+            errorMsg += ": " + ex.getMessage();
+        }
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .error("Malformed JSON")
-                .message("Formato JSON inválido ou tipo de dado incorreto")
+                .message(errorMsg)
                 .path(request.getRequestURI())
                 .build();
         
