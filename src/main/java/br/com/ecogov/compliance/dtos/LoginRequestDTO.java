@@ -8,15 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteDTO {
-    private Long idCliente;
-    
-    @NotBlank(message = "Nome é obrigatório")
-    private String nome;
-    
+public class LoginRequestDTO {
     @NotBlank(message = "CNPJ é obrigatório")
     private String cnpj;
-    
-    @NotBlank(message = "Endereço é obrigatório")
-    private String endereco;
+
+    @NotBlank(message = "Senha é obrigatória")
+    private String password;
 }
