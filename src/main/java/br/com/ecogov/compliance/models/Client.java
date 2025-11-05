@@ -81,4 +81,9 @@ public class Client implements UserDetails {
     public boolean isEnabled() {
         return ativo;
     }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
 }
