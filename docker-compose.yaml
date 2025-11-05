@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  oracle-db:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: oracle-compliance
+    environment:
+      ORACLE_PASSWORD: oracle_admin
+      APP_USER: compliance_user
+      APP_USER_PASSWORD: compliance_pass
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-compliance
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: compliance-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@//oracle-db:1521/XEPDB1
+      SPRING_DATASOURCE_USERNAME: compliance_user
+      SPRING_DATASOURCE_PASSWORD: compliance_pass
+      SPRING_RABBITMQ_HOST: rabbitmq
+    depends_on:
+      - oracle-db
+      - rabbitmq
+    restart: on-failure
+
+volumes:
+  oracle-data:
