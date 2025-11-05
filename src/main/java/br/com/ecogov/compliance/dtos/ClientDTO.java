@@ -1,7 +1,6 @@
 package br.com.ecogov.compliance.dtos;
 
 import br.com.ecogov.compliance.models.ClientRole;
-import br.com.ecogov.compliance.models.ClientRole;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
