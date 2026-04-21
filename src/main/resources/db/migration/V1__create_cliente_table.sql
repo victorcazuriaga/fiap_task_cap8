@@ -1,15 +1,14 @@
--- V1__create_cliente_table.sql
+-- V1__create_cliente_table.sql (PostgreSQL)
 CREATE TABLE cliente (
-                         id_cliente VARCHAR2(36 CHAR) PRIMARY KEY,
-                         nome VARCHAR2(100 CHAR) NOT NULL,
-                         email VARCHAR2(100 CHAR) UNIQUE,
-                         cnpj VARCHAR2(20 CHAR) NOT NULL UNIQUE,
-                         endereco VARCHAR2(200 CHAR) NOT NULL,
-                         password VARCHAR2(255 CHAR) NOT NULL,
-                         role VARCHAR2(255 CHAR) NOT NULL CHECK (role IN ('USER', 'ADMIN')),
-                         ativo NUMBER(1,0) DEFAULT 1 CHECK (ativo IN (0, 1))
+    id_cliente VARCHAR(36)  PRIMARY KEY,
+    nome       VARCHAR(100) NOT NULL,
+    email      VARCHAR(100) UNIQUE,
+    cnpj       VARCHAR(20)  NOT NULL UNIQUE,
+    endereco   VARCHAR(200) NOT NULL,
+    password   VARCHAR(255) NOT NULL,
+    role       VARCHAR(20)  NOT NULL CHECK (role IN ('USER', 'ADMIN')),
+    ativo      BOOLEAN      NOT NULL DEFAULT TRUE
 );
 
--- Índices adicionais (opcional)
 CREATE INDEX idx_cliente_email ON cliente (email);
-CREATE INDEX idx_cliente_cnpj ON cliente (cnpj);
+CREATE INDEX idx_cliente_cnpj  ON cliente (cnpj);

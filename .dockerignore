@@ -56,6 +56,11 @@ logs/
 Thumbs.db
 *.tmp
 
+#Env files (never ship into the image)
+.env
+.env.*
+!.env.example
+
 #Test
 **/src/test/
 !**/src/

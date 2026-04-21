@@ -32,6 +32,12 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs", "/v3/api-docs/**",
+                                "/swagger-ui.html", "/swagger-ui/**",
+                                "/swagger-resources/**", "/webjars/**"
+                        ).permitAll()
+                        .requestMatchers("/actuator/health/**", "/actuator/info").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/clientes/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/clientes/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/clientes/**").hasRole("ADMIN")
