@@ -1,6 +1,6 @@
 -- V1__create_cliente_table.sql (PostgreSQL)
 CREATE TABLE cliente (
-    id_cliente VARCHAR(36)  PRIMARY KEY,
+    id_cliente UUID         PRIMARY KEY,
     nome       VARCHAR(100) NOT NULL,
     email      VARCHAR(100) UNIQUE,
     cnpj       VARCHAR(20)  NOT NULL UNIQUE,
