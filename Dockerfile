@@ -34,7 +34,7 @@ ENV SPRING_PROFILES_ACTIVE=prod \
 USER spring
 EXPOSE 8080
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+HEALTHCHECK --interval=15s --timeout=5s --start-period=120s --retries=5 \
   CMD curl -fsS http://localhost:${SERVER_PORT}/actuator/health/liveness || exit 1
 
 ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar app.jar"]
