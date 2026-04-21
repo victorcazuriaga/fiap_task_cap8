@@ -71,6 +71,8 @@ jobs:
       name: staging
       url: http://${{ vars.VM_HOST }}:8080/actuator/health
     steps:
+      - uses: actions/checkout@v4
+
       - name: Sync docker-compose to VM
         uses: appleboy/scp-action@v0.1.7
         with:
